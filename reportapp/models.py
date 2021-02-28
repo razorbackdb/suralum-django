@@ -9,8 +9,10 @@ from django.db import models
 
 
 class AccProducto(models.Model):
-    id_producto = models.OneToOneField('Productos', models.DO_NOTHING, db_column='id_producto', primary_key=True)
-    id_accesorio = models.ForeignKey('Accesorios', models.DO_NOTHING, db_column='id_accesorio')
+    id_producto = models.OneToOneField(
+        'Productos', models.DO_NOTHING, db_column='id_producto', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        'Accesorios', models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.IntegerField()
 
     class Meta:
@@ -20,8 +22,10 @@ class AccProducto(models.Model):
 
 
 class AccesorioProveedores(models.Model):
-    id_proveedor = models.OneToOneField('Proveedores', models.DO_NOTHING, db_column='id_proveedor', primary_key=True)
-    id_accesorio = models.ForeignKey('Accesorios', models.DO_NOTHING, db_column='id_accesorio')
+    id_proveedor = models.OneToOneField(
+        'Proveedores', models.DO_NOTHING, db_column='id_proveedor', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        'Accesorios', models.DO_NOTHING, db_column='id_accesorio')
     costo = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -34,10 +38,13 @@ class Accesorios(models.Model):
     id_accesorio = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
-    id_tipo_acc = models.ForeignKey('TipoAccesorio', models.DO_NOTHING, db_column='id_tipo_acc', blank=True, null=True)
-    precio = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    id_tipo_acc = models.ForeignKey(
+        'TipoAccesorio', models.DO_NOTHING, db_column='id_tipo_acc', blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
-    costo = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
     ctaid = models.IntegerField(blank=True, null=True)
 
@@ -57,8 +64,10 @@ class AccesoriosAct(models.Model):
 
 
 class AccsAsocMerma(models.Model):
-    id_merma = models.OneToOneField('Merma', models.DO_NOTHING, db_column='id_merma', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_merma = models.OneToOneField(
+        'Merma', models.DO_NOTHING, db_column='id_merma', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -68,8 +77,10 @@ class AccsAsocMerma(models.Model):
 
 
 class AccsAsocPedido(models.Model):
-    id_accesorio = models.OneToOneField(Accesorios, models.DO_NOTHING, db_column='id_accesorio', primary_key=True)
-    id_pedido = models.ForeignKey('Pedidos', models.DO_NOTHING, db_column='id_pedido')
+    id_accesorio = models.OneToOneField(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio', primary_key=True)
+    id_pedido = models.ForeignKey(
+        'Pedidos', models.DO_NOTHING, db_column='id_pedido')
     cantidad = models.FloatField(blank=True, null=True)
     stock_descontado = models.FloatField(blank=True, null=True)
 
@@ -81,7 +92,8 @@ class AccsAsocPedido(models.Model):
 
 class Adjuntosdte(models.Model):
     adjcorrelativo = models.FloatField(primary_key=True)
-    corcorrelativo = models.ForeignKey('Correosdte', models.DO_NOTHING, db_column='corcorrelativo')
+    corcorrelativo = models.ForeignKey(
+        'Correosdte', models.DO_NOTHING, db_column='corcorrelativo')
     adjnombre = models.CharField(max_length=255)
 
     class Meta:
@@ -157,9 +169,11 @@ class Clientes(models.Model):
     apellido_materno = models.CharField(max_length=25, blank=True, null=True)
     giro = models.CharField(max_length=50, blank=True, null=True)
     descuento1 = models.FloatField(blank=True, null=True)
-    descripcion_descuento1 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento1 = models.CharField(
+        max_length=40, blank=True, null=True)
     descuento2 = models.FloatField(blank=True, null=True)
-    descripcion_descuento2 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento2 = models.CharField(
+        max_length=40, blank=True, null=True)
     observaciones = models.CharField(max_length=200, blank=True, null=True)
     cuenta_banco = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True)
@@ -196,11 +210,15 @@ class Cliunidades(models.Model):
 
 
 class CompraProductos(models.Model):
-    comcorrelativo = models.OneToOneField('Compras', models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
+    comcorrelativo = models.OneToOneField(
+        'Compras', models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
     pronombre = models.CharField(max_length=50, blank=True, null=True)
-    procantidad = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
-    proprecio = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
-    id_producto_asoc = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto_asoc', blank=True, null=True)
+    procantidad = models.DecimalField(
+        max_digits=15, decimal_places=2, blank=True, null=True)
+    proprecio = models.DecimalField(
+        max_digits=15, decimal_places=2, blank=True, null=True)
+    id_producto_asoc = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto_asoc', blank=True, null=True)
     proexento = models.CharField(max_length=1, blank=True, null=True)
     nrolinea = models.IntegerField()
     ctaid = models.IntegerField(blank=True, null=True)
@@ -242,12 +260,14 @@ class Compras(models.Model):
 
 
 class ComprasDsctoRec(models.Model):
-    comcorrelativo = models.OneToOneField(Compras, models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
+    comcorrelativo = models.OneToOneField(
+        Compras, models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
     nrolinea = models.IntegerField()
     tpomov = models.CharField(max_length=1, blank=True, null=True)
     glosadr = models.CharField(max_length=45, blank=True, null=True)
     tpovalor = models.CharField(max_length=1, blank=True, null=True)
-    valordr = models.DecimalField(max_digits=18, decimal_places=2, blank=True, null=True)
+    valordr = models.DecimalField(
+        max_digits=18, decimal_places=2, blank=True, null=True)
     indexedr = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
@@ -257,7 +277,8 @@ class ComprasDsctoRec(models.Model):
 
 
 class ComprasImpuestos(models.Model):
-    comcorrelativo = models.OneToOneField(Compras, models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
+    comcorrelativo = models.OneToOneField(
+        Compras, models.DO_NOTHING, db_column='comcorrelativo', primary_key=True)
     comcodimpto = models.IntegerField()
     comtasaimpto = models.FloatField()
     commtoimpto = models.FloatField(blank=True, null=True)
@@ -271,7 +292,8 @@ class ComprasImpuestos(models.Model):
 class Comuna(models.Model):
     id_comuna = models.IntegerField(primary_key=True)
     nombre_comuna = models.CharField(max_length=100, blank=True, null=True)
-    id_provincia = models.ForeignKey('Provincia', models.DO_NOTHING, db_column='id_provincia', blank=True, null=True)
+    id_provincia = models.ForeignKey(
+        'Provincia', models.DO_NOTHING, db_column='id_provincia', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -280,7 +302,8 @@ class Comuna(models.Model):
 
 class ComunaClientes(models.Model):
     #id_comuna = models.OneToOneField(Comuna, models.DO_NOTHING, db_column='id_comuna', primary_key=True)
-    rut_cliente = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='rut_cliente')
+    rut_cliente = models.ForeignKey(
+        Clientes, models.DO_NOTHING, db_column='rut_cliente')
     #direccion = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15, blank=True, null=True)
 
@@ -301,7 +324,8 @@ class Config(models.Model):
 
 class Correosdte(models.Model):
     corcorrelativo = models.IntegerField(primary_key=True)
-    casid = models.ForeignKey(Casillasdte, models.DO_NOTHING, db_column='casid', blank=True, null=True)
+    casid = models.ForeignKey(
+        Casillasdte, models.DO_NOTHING, db_column='casid', blank=True, null=True)
     coridserver = models.CharField(max_length=100, blank=True, null=True)
     cordesde = models.CharField(max_length=500, blank=True, null=True)
     corfecha = models.DateField(blank=True, null=True)
@@ -371,8 +395,10 @@ class Enviosdte(models.Model):
 
 
 class EnviosdteVentas(models.Model):
-    envcorrelativo = models.OneToOneField(Enviosdte, models.DO_NOTHING, db_column='envcorrelativo', primary_key=True)
-    vencorrelativo = models.ForeignKey('Ventas', models.DO_NOTHING, db_column='vencorrelativo')
+    envcorrelativo = models.OneToOneField(
+        Enviosdte, models.DO_NOTHING, db_column='envcorrelativo', primary_key=True)
+    vencorrelativo = models.ForeignKey(
+        'Ventas', models.DO_NOTHING, db_column='vencorrelativo')
     pardteestado = models.FloatField(blank=True, null=True)
     resestado = models.CharField(max_length=100, blank=True, null=True)
     resdetalle = models.CharField(max_length=2000, blank=True, null=True)
@@ -395,7 +421,8 @@ class Enviosiecv(models.Model):
     parenvinftipooperacion = models.BooleanField(blank=True, null=True)
     envinffolionotif = models.FloatField(blank=True, null=True)
     parenvinfestado = models.BooleanField(blank=True, null=True)
-    envinfestadodetalle = models.CharField(max_length=4000, blank=True, null=True)
+    envinfestadodetalle = models.CharField(
+        max_length=4000, blank=True, null=True)
     envinfnrosegmento = models.IntegerField(blank=True, null=True)
     envinftrackid = models.CharField(max_length=20, blank=True, null=True)
     usuenvia = models.FloatField(blank=True, null=True)
@@ -407,7 +434,8 @@ class Enviosiecv(models.Model):
 
 
 class EnviosiecvCompras(models.Model):
-    envinfcorrelativo = models.OneToOneField(Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
+    envinfcorrelativo = models.OneToOneField(
+        Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
     comcorrelativo = models.FloatField()
 
     class Meta:
@@ -417,7 +445,8 @@ class EnviosiecvCompras(models.Model):
 
 
 class EnviosiecvComprasivanorec(models.Model):
-    envinfcorrelativo = models.OneToOneField(Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
+    envinfcorrelativo = models.OneToOneField(
+        Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
     comcorrelativo = models.FloatField()
     comcodivanorec = models.BooleanField()
     commtoivanorec = models.FloatField(blank=True, null=True)
@@ -425,11 +454,13 @@ class EnviosiecvComprasivanorec(models.Model):
     class Meta:
         managed = False
         db_table = 'enviosiecv_comprasivanorec'
-        unique_together = (('envinfcorrelativo', 'comcorrelativo', 'comcodivanorec'),)
+        unique_together = (
+            ('envinfcorrelativo', 'comcorrelativo', 'comcodivanorec'),)
 
 
 class EnviosiecvImpuestos(models.Model):
-    envinfcorrelativo = models.ForeignKey(Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', blank=True, null=True)
+    envinfcorrelativo = models.ForeignKey(
+        Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', blank=True, null=True)
     opeidsii = models.IntegerField(blank=True, null=True)
     envinfcodimpto = models.IntegerField(blank=True, null=True)
     envinfmtoimpto = models.FloatField(blank=True, null=True)
@@ -441,7 +472,8 @@ class EnviosiecvImpuestos(models.Model):
 
 
 class EnviosiecvTotales(models.Model):
-    envinfcorrelativo = models.OneToOneField(Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
+    envinfcorrelativo = models.OneToOneField(
+        Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
     opeidsii = models.IntegerField()
     totmtoneto = models.FloatField(blank=True, null=True)
     totmtoexe = models.FloatField(blank=True, null=True)
@@ -457,7 +489,8 @@ class EnviosiecvTotales(models.Model):
 
 
 class EnviosiecvVentas(models.Model):
-    envinfcorrelativo = models.OneToOneField(Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
+    envinfcorrelativo = models.OneToOneField(
+        Enviosiecv, models.DO_NOTHING, db_column='envinfcorrelativo', primary_key=True)
     vencorrelativo = models.FloatField()
 
     class Meta:
@@ -475,7 +508,8 @@ class Enviosrecibidosdte(models.Model):
     parenvrecestado = models.BooleanField(blank=True, null=True)
     envrecusuid = models.IntegerField(blank=True, null=True)
     envrecarchivo = models.CharField(max_length=150, blank=True, null=True)
-    adjcorrelativo = models.ForeignKey(Adjuntosdte, models.DO_NOTHING, db_column='adjcorrelativo', blank=True, null=True)
+    adjcorrelativo = models.ForeignKey(
+        Adjuntosdte, models.DO_NOTHING, db_column='adjcorrelativo', blank=True, null=True)
     fecactualiza = models.DateField(blank=True, null=True)
     usuactualiza = models.IntegerField(blank=True, null=True)
 
@@ -489,10 +523,12 @@ class EnviosrecibidosdteDetalle(models.Model):
     envrectipodte = models.IntegerField()
     envrecfoliodte = models.BigIntegerField()
     envrecfechadte = models.DateField(blank=True, null=True)
-    envrecrutreceptordte = models.CharField(max_length=9, blank=True, null=True)
+    envrecrutreceptordte = models.CharField(
+        max_length=9, blank=True, null=True)
     envrecmontototaldte = models.IntegerField(blank=True, null=True)
     pardteestadorecepcion = models.BooleanField(blank=True, null=True)
-    envrecobservaciondte = models.CharField(max_length=255, blank=True, null=True)
+    envrecobservaciondte = models.CharField(
+        max_length=255, blank=True, null=True)
     fecactualiza = models.DateField(blank=True, null=True)
     sucid = models.IntegerField(blank=True, null=True)
     pardteestadoacepta = models.BooleanField(blank=True, null=True)
@@ -504,12 +540,14 @@ class EnviosrecibidosdteDetalle(models.Model):
     class Meta:
         managed = False
         db_table = 'enviosrecibidosdte_detalle'
-        unique_together = (('envreccorrelativo', 'envrectipodte', 'envrecfoliodte', 'envrecrutemisordte'),)
+        unique_together = (('envreccorrelativo', 'envrectipodte',
+                            'envrecfoliodte', 'envrecrutemisordte'),)
 
 
 class Familia(models.Model):
     id_familia = models.IntegerField(primary_key=True)
-    descripcion_familia = models.CharField(max_length=15, blank=True, null=True)
+    descripcion_familia = models.CharField(
+        max_length=15, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -517,8 +555,10 @@ class Familia(models.Model):
 
 
 class FasesAccesorio(models.Model):
-    id_fase = models.OneToOneField('FasesProduccion', models.DO_NOTHING, db_column='id_fase', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_fase = models.OneToOneField(
+        'FasesProduccion', models.DO_NOTHING, db_column='id_fase', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     costo = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -538,8 +578,10 @@ class FasesProduccion(models.Model):
 
 
 class FasesProducto(models.Model):
-    id_fase = models.OneToOneField(FasesProduccion, models.DO_NOTHING, db_column='id_fase', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
+    id_fase = models.OneToOneField(
+        FasesProduccion, models.DO_NOTHING, db_column='id_fase', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
     costo = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -549,9 +591,12 @@ class FasesProducto(models.Model):
 
 
 class FasesTrabajo(models.Model):
-    id_trabajador = models.OneToOneField('Trabajadores', models.DO_NOTHING, db_column='id_trabajador', primary_key=True)
-    id_orden_trabajo = models.ForeignKey('OrdenTrabajo', models.DO_NOTHING, db_column='id_orden_trabajo')
-    id_fase = models.ForeignKey(FasesProduccion, models.DO_NOTHING, db_column='id_fase')
+    id_trabajador = models.OneToOneField(
+        'Trabajadores', models.DO_NOTHING, db_column='id_trabajador', primary_key=True)
+    id_orden_trabajo = models.ForeignKey(
+        'OrdenTrabajo', models.DO_NOTHING, db_column='id_orden_trabajo')
+    id_fase = models.ForeignKey(
+        FasesProduccion, models.DO_NOTHING, db_column='id_fase')
 
     class Meta:
         managed = False
@@ -567,7 +612,8 @@ class Folios(models.Model):
     folnumero = models.FloatField(blank=True, null=True)
     vencorrelativo = models.FloatField(blank=True, null=True)
     parfolestado = models.BooleanField(blank=True, null=True)
-    cafcorrelativo = models.ForeignKey(Cafs, models.DO_NOTHING, db_column='cafcorrelativo', blank=True, null=True)
+    cafcorrelativo = models.ForeignKey(
+        Cafs, models.DO_NOTHING, db_column='cafcorrelativo', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -615,8 +661,10 @@ class GuiaDespacho(models.Model):
 
 
 class GuiaDespachoVenta(models.Model):
-    id_guia_despacho = models.OneToOneField(GuiaDespacho, models.DO_NOTHING, db_column='id_guia_despacho', primary_key=True)
-    id_venta = models.ForeignKey('Ventas', models.DO_NOTHING, db_column='id_venta')
+    id_guia_despacho = models.OneToOneField(
+        GuiaDespacho, models.DO_NOTHING, db_column='id_guia_despacho', primary_key=True)
+    id_venta = models.ForeignKey(
+        'Ventas', models.DO_NOTHING, db_column='id_venta')
 
     class Meta:
         managed = False
@@ -625,16 +673,20 @@ class GuiaDespachoVenta(models.Model):
 
 
 class GuiaProductos(models.Model):
-    id_guia_despacho = models.OneToOneField(GuiaDespacho, models.DO_NOTHING, db_column='id_guia_despacho', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_guia_despacho = models.OneToOneField(
+        GuiaDespacho, models.DO_NOTHING, db_column='id_guia_despacho', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.FloatField(blank=True, null=True)
     precio = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'guia_productos'
-        unique_together = (('id_guia_despacho', 'id_producto', 'id_accesorio'),)
+        unique_together = (
+            ('id_guia_despacho', 'id_producto', 'id_accesorio'),)
 
 
 class ListaPrecio(models.Model):
@@ -656,13 +708,17 @@ class ListaPrecioDet(models.Model):
     class Meta:
         managed = False
         db_table = 'lista_precio_det'
-        unique_together = (('fk_lista_precio', 'fk_id_producto_acc', 'par_tipo_producto'),)
+        unique_together = (
+            ('fk_lista_precio', 'fk_id_producto_acc', 'par_tipo_producto'),)
 
 
 class MatPrimaAccesorio(models.Model):
-    id_materia_prima = models.OneToOneField('MateriaPrima', models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
-    relacion = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    id_materia_prima = models.OneToOneField(
+        'MateriaPrima', models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    relacion = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -671,8 +727,10 @@ class MatPrimaAccesorio(models.Model):
 
 
 class MatPrimaProducto(models.Model):
-    id_materia_prima = models.OneToOneField('MateriaPrima', models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
+    id_materia_prima = models.OneToOneField(
+        'MateriaPrima', models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
     relacion = models.DecimalField(max_digits=7, decimal_places=2)
 
     class Meta:
@@ -696,8 +754,10 @@ class MateriaPrima(models.Model):
 
 
 class MateriaPrimaProveedores(models.Model):
-    id_materia_prima = models.OneToOneField(MateriaPrima, models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
-    id_proveedor = models.ForeignKey('Proveedores', models.DO_NOTHING, db_column='id_proveedor')
+    id_materia_prima = models.OneToOneField(
+        MateriaPrima, models.DO_NOTHING, db_column='id_materia_prima', primary_key=True)
+    id_proveedor = models.ForeignKey(
+        'Proveedores', models.DO_NOTHING, db_column='id_proveedor')
     costo = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -727,8 +787,10 @@ class Merma(models.Model):
 
 
 class MermaAccesorios(models.Model):
-    id_merma = models.OneToOneField(Merma, models.DO_NOTHING, db_column='id_merma', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_merma = models.OneToOneField(
+        Merma, models.DO_NOTHING, db_column='id_merma', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -738,8 +800,10 @@ class MermaAccesorios(models.Model):
 
 
 class MermaProductos(models.Model):
-    id_merma = models.OneToOneField(Merma, models.DO_NOTHING, db_column='id_merma', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
+    id_merma = models.OneToOneField(
+        Merma, models.DO_NOTHING, db_column='id_merma', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
     cantidad = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -790,7 +854,8 @@ class Movcontenc(models.Model):
 
 class OrdenCompra(models.Model):
     id_orden = models.IntegerField(primary_key=True)
-    id_proveedor = models.ForeignKey('Proveedores', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
+    id_proveedor = models.ForeignKey(
+        'Proveedores', models.DO_NOTHING, db_column='id_proveedor', blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
     observacion = models.CharField(max_length=300, blank=True, null=True)
     estado = models.CharField(max_length=10, blank=True, null=True)
@@ -801,8 +866,10 @@ class OrdenCompra(models.Model):
 
 
 class OrdenCompraAcc(models.Model):
-    id_orden = models.OneToOneField(OrdenCompra, models.DO_NOTHING, db_column='id_orden', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_orden = models.OneToOneField(
+        OrdenCompra, models.DO_NOTHING, db_column='id_orden', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.IntegerField()
 
     class Meta:
@@ -812,8 +879,10 @@ class OrdenCompraAcc(models.Model):
 
 
 class OrdenCompraMp(models.Model):
-    id_orden = models.OneToOneField(OrdenCompra, models.DO_NOTHING, db_column='id_orden', primary_key=True)
-    id_materia_prima = models.ForeignKey(MateriaPrima, models.DO_NOTHING, db_column='id_materia_prima')
+    id_orden = models.OneToOneField(
+        OrdenCompra, models.DO_NOTHING, db_column='id_orden', primary_key=True)
+    id_materia_prima = models.ForeignKey(
+        MateriaPrima, models.DO_NOTHING, db_column='id_materia_prima')
     cantidad = models.IntegerField()
 
     class Meta:
@@ -823,8 +892,10 @@ class OrdenCompraMp(models.Model):
 
 
 class OrdenCompraPedido(models.Model):
-    id_pedido = models.OneToOneField('Pedidos', models.DO_NOTHING, db_column='id_pedido', primary_key=True)
-    id_orden_compra = models.ForeignKey(OrdenCompra, models.DO_NOTHING, db_column='id_orden_compra')
+    id_pedido = models.OneToOneField(
+        'Pedidos', models.DO_NOTHING, db_column='id_pedido', primary_key=True)
+    id_orden_compra = models.ForeignKey(
+        OrdenCompra, models.DO_NOTHING, db_column='id_orden_compra')
 
     class Meta:
         managed = False
@@ -851,8 +922,10 @@ class OrdenTrabajo(models.Model):
 
 
 class OtAccesorios(models.Model):
-    id_orden_trabajo = models.OneToOneField(OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo', primary_key=True)
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_orden_trabajo = models.OneToOneField(
+        OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo', primary_key=True)
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.IntegerField()
     costo = models.FloatField(blank=True, null=True)
 
@@ -863,8 +936,10 @@ class OtAccesorios(models.Model):
 
 
 class OtProd(models.Model):
-    id_orden_trabajo = models.OneToOneField(OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
+    id_orden_trabajo = models.OneToOneField(
+        OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
     cantidad = models.IntegerField()
     costo = models.FloatField(blank=True, null=True)
 
@@ -886,9 +961,12 @@ class Parametros(models.Model):
 
 
 class PedidoProductos(models.Model):
-    id_pedido = models.OneToOneField('Pedidos', models.DO_NOTHING, db_column='id_pedido', primary_key=True)
-    id_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='id_producto')
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    id_pedido = models.OneToOneField(
+        'Pedidos', models.DO_NOTHING, db_column='id_pedido', primary_key=True)
+    id_producto = models.ForeignKey(
+        'Productos', models.DO_NOTHING, db_column='id_producto')
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
     cantidad = models.FloatField(blank=True, null=True)
     stock_descontado = models.FloatField(blank=True, null=True)
     precio = models.FloatField(blank=True, null=True)
@@ -902,20 +980,24 @@ class PedidoProductos(models.Model):
 
 class Pedidos(models.Model):
     id_pedido = models.FloatField(primary_key=True)
-    rut_cliente = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='rut_cliente', blank=True, null=True)
+    rut_cliente = models.ForeignKey(
+        ComunaClientes, models.DO_NOTHING, db_column='rut_cliente', blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
     estado = models.CharField(max_length=20, blank=True, null=True)
     subtotal = models.FloatField(blank=True, null=True)
     nro_factura_asoc = models.FloatField(blank=True, null=True)
     #id_orden_trabajo_1 = models.ForeignKey(OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo_1', blank=True, null=True)
     #id_orden_trabajo_2 = models.ForeignKey(OrdenTrabajo, models.DO_NOTHING, db_column='id_orden_trabajo_2', blank=True, null=True)
-    id_familia = models.ForeignKey(Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
+    id_familia = models.ForeignKey(
+        Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
     #id_comuna = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='id_comuna', blank=True, null=True)
     #direccion = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='direccion', blank=True, null=True)
     descuento1 = models.FloatField(blank=True, null=True)
-    descripcion_descuento1 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento1 = models.CharField(
+        max_length=40, blank=True, null=True)
     descuento2 = models.FloatField(blank=True, null=True)
-    descripcion_descuento2 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento2 = models.CharField(
+        max_length=40, blank=True, null=True)
     recuperacion_flete = models.FloatField(blank=True, null=True)
     total = models.FloatField(blank=True, null=True)
     fecingresa = models.DateField(blank=True, null=True)
@@ -938,10 +1020,13 @@ class Pedidos(models.Model):
 class Productos(models.Model):
     id_producto = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=15, decimal_places=2, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
-    id_familia = models.ForeignKey(Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
-    costo = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
+    id_familia = models.ForeignKey(
+        Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=15, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
     id_producto_mixto = models.FloatField(blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
@@ -961,10 +1046,12 @@ class Productos(models.Model):
 class Productos20130211(models.Model):
     id_producto = models.IntegerField()
     descripcion = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
     id_familia = models.IntegerField(blank=True, null=True)
-    costo = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
     id_producto_mixto = models.FloatField(blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
@@ -977,10 +1064,13 @@ class Productos20130211(models.Model):
 class Productos20130512(models.Model):
     id_producto = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
-    id_familia = models.ForeignKey(Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
-    costo = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    id_familia = models.ForeignKey(
+        Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
     id_producto_mixto = models.FloatField(blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
@@ -993,10 +1083,12 @@ class Productos20130512(models.Model):
 class Productos20131006(models.Model):
     id_producto = models.IntegerField()
     descripcion = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
     id_familia = models.IntegerField(blank=True, null=True)
-    costo = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
     id_producto_mixto = models.FloatField(blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
@@ -1020,12 +1112,16 @@ class ProductosAct(models.Model):
 class ProductosError20130218(models.Model):
     id_producto = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    precio = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     stock = models.IntegerField(blank=True, null=True)
-    id_familia = models.ForeignKey(Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
-    costo = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    id_familia = models.ForeignKey(
+        Familia, models.DO_NOTHING, db_column='id_familia', blank=True, null=True)
+    costo = models.DecimalField(
+        max_digits=7, decimal_places=2, blank=True, null=True)
     codigo = models.CharField(max_length=10, blank=True, null=True)
-    id_producto_mixto = models.ForeignKey('self', models.DO_NOTHING, db_column='id_producto_mixto', blank=True, null=True)
+    id_producto_mixto = models.ForeignKey(
+        'self', models.DO_NOTHING, db_column='id_producto_mixto', blank=True, null=True)
     stock_minimo = models.FloatField(blank=True, null=True)
 
     class Meta:
@@ -1068,7 +1164,8 @@ class Proveedores(models.Model):
 class Provincia(models.Model):
     id_provincia = models.IntegerField(primary_key=True)
     nombre_provincia = models.CharField(max_length=100, blank=True, null=True)
-    id_region = models.ForeignKey('Region', models.DO_NOTHING, db_column='id_region', blank=True, null=True)
+    id_region = models.ForeignKey(
+        'Region', models.DO_NOTHING, db_column='id_region', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -1098,7 +1195,8 @@ class Recaudacion(models.Model):
 
 
 class Recdetalle(models.Model):
-    reccorrelativo = models.ForeignKey(Recaudacion, models.DO_NOTHING, db_column='reccorrelativo', blank=True, null=True)
+    reccorrelativo = models.ForeignKey(
+        Recaudacion, models.DO_NOTHING, db_column='reccorrelativo', blank=True, null=True)
     reclinea = models.IntegerField(blank=True, null=True)
     banid = models.IntegerField(blank=True, null=True)
     clirut = models.CharField(max_length=10, blank=True, null=True)
@@ -1128,7 +1226,8 @@ class Recursos(models.Model):
 class Region(models.Model):
     id_region = models.IntegerField(primary_key=True)
     nombre_region = models.CharField(max_length=100, blank=True, null=True)
-    id_zona = models.ForeignKey('Zona', models.DO_NOTHING, db_column='id_zona', blank=True, null=True)
+    id_zona = models.ForeignKey(
+        'Zona', models.DO_NOTHING, db_column='id_zona', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -1166,7 +1265,8 @@ class RespuestasdteDetalle(models.Model):
     class Meta:
         managed = False
         db_table = 'respuestasdte_detalle'
-        unique_together = (('rescorrelativo', 'restipodte', 'resfoliodte', 'resrutemisordte'),)
+        unique_together = (('rescorrelativo', 'restipodte',
+                            'resfoliodte', 'resrutemisordte'),)
 
 
 class RespuestasrecdteAcuseventas(models.Model):
@@ -1177,7 +1277,8 @@ class RespuestasrecdteAcuseventas(models.Model):
     class Meta:
         managed = False
         db_table = 'respuestasrecdte_acuseventas'
-        unique_together = (('resreccorrelativo', 'envcorrelativo', 'vencorrelativo'),)
+        unique_together = (
+            ('resreccorrelativo', 'envcorrelativo', 'vencorrelativo'),)
 
 
 class RespuestasrecdteEnvios(models.Model):
@@ -1210,7 +1311,8 @@ class Respuestasrecibidasdte(models.Model):
     resrecnumdetalles = models.IntegerField(blank=True, null=True)
     resreccontacto = models.CharField(max_length=40, blank=True, null=True)
     resrecfonocontacto = models.CharField(max_length=40, blank=True, null=True)
-    resrecemailcontacto = models.CharField(max_length=100, blank=True, null=True)
+    resrecemailcontacto = models.CharField(
+        max_length=100, blank=True, null=True)
     resrecarchivo = models.CharField(max_length=150, blank=True, null=True)
     resrecfecha = models.DateField(blank=True, null=True)
     fecactualiza = models.DateField(blank=True, null=True)
@@ -1260,7 +1362,8 @@ class Sociedades(models.Model):
 class Sucursales(models.Model):
     sucid = models.IntegerField(primary_key=True)
     sucnombre = models.CharField(max_length=50, blank=True, null=True)
-    socid = models.ForeignKey(Sociedades, models.DO_NOTHING, db_column='socid', blank=True, null=True)
+    socid = models.ForeignKey(
+        Sociedades, models.DO_NOTHING, db_column='socid', blank=True, null=True)
     sucdireccion = models.CharField(max_length=150, blank=True, null=True)
     sucfono = models.CharField(max_length=20, blank=True, null=True)
     sucfax = models.CharField(max_length=20, blank=True, null=True)
@@ -1276,7 +1379,8 @@ class Sucursales(models.Model):
 
 class TipoAccesorio(models.Model):
     id_tipo_acc = models.FloatField(primary_key=True)
-    descripcion_tipo_acc = models.CharField(max_length=25, blank=True, null=True)
+    descripcion_tipo_acc = models.CharField(
+        max_length=25, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -1363,34 +1467,23 @@ class Vendocrelaciona(models.Model):
         db_table = 'vendocrelaciona'
 
 
-class VentaProductos(models.Model):
-    id_venta = models.IntegerField(primary_key=True)
-    id_producto = models.ForeignKey(Productos, models.DO_NOTHING, db_column='id_producto')
-    id_accesorio = models.ForeignKey(Accesorios, models.DO_NOTHING, db_column='id_accesorio')
-    cantidad = models.IntegerField(blank=True, null=True)
-    precio = models.FloatField(blank=True, null=True)
-    orden = models.IntegerField(blank=True, null=True)
-    ctaid = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'venta_productos'
-        unique_together = (('id_venta', 'id_producto', 'id_accesorio'),)
-
-
 class Ventas(models.Model):
     id_venta = models.IntegerField(primary_key=True)
-    rut_cliente = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='rut_cliente', blank=True, null=True)
+    rut_cliente = models.ForeignKey(
+        ComunaClientes, models.DO_NOTHING, db_column='rut_cliente', blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
     subtotal = models.FloatField(blank=True, null=True)
     descuento1 = models.FloatField(blank=True, null=True)
-    descripcion_descuento1 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento1 = models.CharField(
+        max_length=40, blank=True, null=True)
     descuento2 = models.FloatField(blank=True, null=True)
-    descripcion_descuento2 = models.CharField(max_length=40, blank=True, null=True)
+    descripcion_descuento2 = models.CharField(
+        max_length=40, blank=True, null=True)
     recuperacion_flete = models.FloatField(blank=True, null=True)
     total = models.FloatField(blank=True, null=True)
     nro_factura = models.FloatField(blank=True, null=True)
-    id_vendedor = models.ForeignKey(Vendedores, models.DO_NOTHING, db_column='id_vendedor', blank=True, null=True)
+    id_vendedor = models.ForeignKey(
+        Vendedores, models.DO_NOTHING, db_column='id_vendedor', blank=True, null=True)
     #id_comuna = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='id_comuna', blank=True, null=True)
     #direccion = models.ForeignKey(ComunaClientes, models.DO_NOTHING, db_column='direccion', blank=True, null=True)
     localidad = models.CharField(max_length=20, blank=True, null=True)
@@ -1418,7 +1511,8 @@ class Ventas(models.Model):
     vencorrelativorev = models.FloatField(blank=True, null=True)
     venrevdescripcion = models.CharField(max_length=100, blank=True, null=True)
     venfecreversa = models.DateField(blank=True, null=True)
-    sucid = models.ForeignKey(Sucursales, models.DO_NOTHING, db_column='sucid', blank=True, null=True)
+    sucid = models.ForeignKey(
+        Sucursales, models.DO_NOTHING, db_column='sucid', blank=True, null=True)
     mpasii = models.CharField(max_length=2, blank=True, null=True)
     centralizado = models.CharField(max_length=1, blank=True, null=True)
     periodocentraliza = models.CharField(max_length=7, blank=True, null=True)
@@ -1428,8 +1522,27 @@ class Ventas(models.Model):
         db_table = 'ventas'
 
 
+class VentaProductos(models.Model):
+    id_venta = models.OneToOneField(
+        Ventas, models.DO_NOTHING, db_column='id_venta', primary_key=True)
+    id_producto = models.ForeignKey(
+        Productos, models.DO_NOTHING, db_column='id_producto')
+    id_accesorio = models.ForeignKey(
+        Accesorios, models.DO_NOTHING, db_column='id_accesorio')
+    cantidad = models.IntegerField(blank=True, null=True)
+    precio = models.FloatField(blank=True, null=True)
+    orden = models.IntegerField(blank=True, null=True)
+    ctaid = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'venta_productos'
+        unique_together = (('id_venta', 'id_producto', 'id_accesorio'),)
+
+
 class VentasImpuestos(models.Model):
-    vencorrelativo = models.OneToOneField(Ventas, models.DO_NOTHING, db_column='vencorrelativo', primary_key=True)
+    vencorrelativo = models.OneToOneField(
+        Ventas, models.DO_NOTHING, db_column='vencorrelativo', primary_key=True)
     vencodimpto = models.IntegerField()
     ventasaimpto = models.FloatField()
     venmtoimpto = models.FloatField(blank=True, null=True)

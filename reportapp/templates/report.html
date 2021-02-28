@@ -13,16 +13,15 @@
                         {% csrf_token %}
                         {{ descform }}
                         <div id="formset_wrapper">
-                            {{ dateform.media }}
                             {{ dateform }}
                         </div>
                         <button id="add-form" type="button">+ Agregar</button>
                         <input type="submit" value="Submit">
                         <div id="emptyform_wrapper" style="display: none">
                             <div class='table'>
-                              <table class='no_error'>
-                                {{ dateform.empty_form }}
-                              </table>
+                                <table class='no_error'>
+                                    {{ dateform.empty_form }}
+                                </table>
                             </div>
                         </div>
                     </form>
@@ -36,12 +35,12 @@
 
 <script>
     $('#add-form').click(function () {
-      let total_form = $('#id_form-TOTAL_FORMS');
-      let form_idx = total_form.val();
-  
-      $('#formset_wrapper').append($('#emptyform_wrapper').html().replace(/__prefix__/g, form_idx));
-      total_form.val(parseInt(form_idx)+1);
+        let total_form = $('#id_form-TOTAL_FORMS');
+        let form_idx = total_form.val();
+
+        $('#formset_wrapper').append($('#emptyform_wrapper').html().replace(/__prefix__/g, form_idx));
+        total_form.val(parseInt(form_idx) + 1);
     });
 </script>
-  
+
 {% endblock %}
