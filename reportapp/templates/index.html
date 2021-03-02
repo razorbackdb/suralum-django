@@ -1,113 +1,145 @@
 {% extends "base_nav.html" %}
 {% block content %}
-{% for i in fechas %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area"><canvas id="canvas{{i}}"
-                            data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Earnings&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
+<div class="container-sm">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Dashboard</h3><a id="generar" class="btn btn-primary btn-sm d-none d-sm-inline-block"
+            role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+</div>
+<div id="print">
+    {% for key, value in datos.items %}
+    <div class="container-sm">
+        <br>
+        <h6 class="text-primary font-weight-bold m-0">Año {{ key }}</h6><br>
+        <div class="row" style="max-width: 768px">
+            <div class="col-lg-6 col-xl-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-5 col-xl-4">
-            <div class="card shadow border-left-success py-2">
-                <div class="card-body">
-                    <div class="row align-items-center no-gutters">
-                        <div class="col mr-2">
-                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Año
-                                    {{i}}</span></div>
-                            <div class="text-dark font-weight-bold h5 mb-0"><span>${{ total }}</span></div>
+                    <div class="card-body" style="max-width: 450px">
+                        <div class="chart-area"><canvas id="canvas{{key}}"
+                                data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Earnings&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
                         </div>
-                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Año
+                                        {{key}}</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.total }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="text-primary font-weight-bold m-0">Producto mas Vendido</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Volumen Vendido</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i, cantidad, precio  in productos_mas_vendidos %}
-                                <tr>
-                                    <td>{{ cantidad }}</td>
-                                    <td>${{ precio }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+        <div class="row" style="max-width: 768px">
+            <div class="col-lg-6 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">Producto mas Vendido</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Volumen Vendido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i, cantidad, precio  in value.productos_mas_vendidos %}
+                                    <tr>
+                                        <td>{{ cantidad }}</td>
+                                        <td>${{ precio }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="text-primary font-weight-bold m-0">Ventas por Familia</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Familia</th>
-                                    <th>Volumen Vendido</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for familia, volumen in ventas_por_familia %}
-                                <tr>
-                                    <td>{{ familia }}</td>
-                                    <td>${{ volumen }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+            <div class="col-lg-6 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas por Familia</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Familia</th>
+                                        <th>Volumen Vendido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for familia, volumen in value.ventas_por_familia %}
+                                    <tr>
+                                        <td>{{ familia }}</td>
+                                        <td>${{ volumen }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
-{{ fechas|json_script:"fechas" }}
-{{ subtotal|json_script:"subtotal" }}
+{{ datos|json_script:"fechas" }}
 <script>
     $(function () {
         $(document).ready(function () {
             const fechas = JSON.parse(document.getElementById('fechas').textContent);
-            const subtotales = JSON.parse(document.getElementById('subtotal').textContent);
+            console.log(Object.keys(fechas).length)
             i = 0;
             for (f in fechas) {
-                j = 0;
-                console.log("canvas['".concat(fechas[i]).concat("']"))
-                var chart = document.getElementById("canvas['".concat(fechas[i]).concat("']")).chart;
-                for (v in subtotales) {
-                    chart.data.datasets[0].data[j] = subtotales[v];
-                    console.log(subtotales[v])
-                    j++;
+                console.log(f.toString());
+                var chart = document.getElementById("canvas".concat(f.toString())).chart;
+                console.log(fechas[f]['ventas_por_mes'])
+                for (v in fechas[f]['ventas_por_mes']) {
+                    chart.data.datasets[0].data[v] = fechas[f]['ventas_por_mes'][v];
                 }
                 chart.update();
-                i++;
             }
         });
 
+        $('#generar').on('click', function () {
+            var opt = {
+                margin: 0,
+                filename: 'myfile.pdf',
+                pagebreak: {
+                    mode: ['avoid-all', 'css', 'legacy']
+                },
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'legal',
+                    orientation: 'portrait'
+                }
+            };
+
+            element = document.getElementById("print");
+            html2pdf(element, opt);
+        });
     });
 </script>
 {% endblock %}

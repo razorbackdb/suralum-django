@@ -1,39 +1,44 @@
+import json
+
+from django_renderpdf.views import PDFView
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from reportapp.models import Familia, Productos, Ventas
 
 from .forms import DateForm, DescForm
 
 # Create your views here.
-
-
 @login_required
 def index(request):
     descriptores = request.session['descriptores']
     fechas = request.session['fechas']
-    subtotal = []
-    productos_mas_vendidos = []
-    ventas_por_familia = []
-    total = 0
+    x = {}
     for f in fechas:
+        subtotal = []
+        productos_mas_vendidos = []
+        ventas_por_familia = []
+        total = 0
+        print(f)
         if '1' in descriptores:
             ventas_por_mes = Ventas.objects.annotate(month=TruncMonth('fecha')).using('suralum').values(
-                'month').annotate(total_mensual=Sum('subtotal')).filter(fecha__year=fechas[0][0]).order_by('month')
+                'month').annotate(total_mensual=Sum('subtotal')).filter(fecha__year=f).order_by('month').values_list('total_mensual')
             for p in ventas_por_mes:
-                subtotal.append(p['total_mensual'])
-                total = total + p['total_mensual']
+                subtotal.append(p[0])
+                total = total + p[0]
         if '2' in descriptores:
             productos = Productos.objects.using('suralum').raw("""SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
                                                                         FROM productos JOIN venta_productos ON(venta_productos.id_producto=productos.id_producto) JOIN ventas ON(ventas.id_venta=venta_productos.id_venta) 
                                                                         WHERE EXTRACT(YEAR FROM ventas.fecha)=%s
                                                                         GROUP BY productos.id_producto, productos.descripcion
                                                                         ORDER BY t DESC
-                                                                        """, [fechas[0][0]])[:10]
+                                                                        """, [f])[:10]
             for p in productos:
                 productos_mas_vendidos.append(
                     [p.id_producto, p.descripcion, p.t])
@@ -44,19 +49,27 @@ def index(request):
                                                                     JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
                                                                     JOIN ventas ON venta_productos.id_venta=ventas.id_venta
                                                                     WHERE EXTRACT(YEAR FROM ventas.fecha) = %s
-                                                                    GROUP BY familia.id_familia;""", [fechas[0][0]])
+                                                                    GROUP BY familia.id_familia;""", [f])
             for p in familias:
                 ventas_por_familia.append([p.descripcion_familia, p.t])
+        x[f] = {
+            'total' : total,
+            'ventas_por_mes': subtotal,
+            'productos_mas_vendidos': productos_mas_vendidos,
+            'ventas_por_familia': ventas_por_familia
+        }
+    print(x)
 
-    return render(request, 'index.html', {'fechas': fechas, 'subtotal': subtotal, 'total': total, 'productos_mas_vendidos': productos_mas_vendidos, 'ventas_por_familia': ventas_por_familia})
+    return render(request, 'index.html', { 'datos' : x })
 
 
 @login_required
 def report(request):
     # if this is a POST request we need to process the form data
-    dateformset = formset_factory(DateForm, can_delete=True)
+    dateformset = formset_factory(DateForm)
     if 'descriptores' in request.session.keys():
         del request.session['descriptores']
+    if 'fechas' in request.session.keys():
         del request.session['fechas']
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -67,12 +80,12 @@ def report(request):
             request.session['descriptores'] = descform.cleaned_data['Descriptores']
 
             fechas = []
-
-            for f in range(0, int(dateform.data.getlist('form-TOTAL_FORMS')[0])):
-                fechas.append(dateform.data.getlist(
-                    'form-'+str(f)+'-Fecha'))
+            print(dateform.data)
+            for f in dateform.data:
+                if f[7:] == "Fecha":
+                    fechas.append(dateform.data[f])
+                print(f)
             request.session['fechas'] = fechas
-
             return HttpResponseRedirect('index')
 
     # if a GET (or any other method) we'll create a blank form
