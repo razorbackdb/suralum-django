@@ -1,14 +1,9 @@
-import json
-
-from django_renderpdf.views import PDFView
-
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from reportapp.models import Familia, Productos, Ventas
 

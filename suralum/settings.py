@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tempus_dominus',
     'reportapp',
-    'wkhtmltopdf',
+    'django_jenkins',
 ]
 
 MIDDLEWARE = [
@@ -88,9 +88,9 @@ DATABASES = {
     'suralum': {
         'NAME': 'xe',
         'ENGINE': 'django.db.backends.oracle',
-        'USER': 'wingesfe',
-        'PASSWORD': 'wingesfe',
-        'HOST': 'localhost',
+        'USER': 'system',
+        'PASSWORD': 'oracle',
+        'HOST': 'db',
         'PORT': '1521',
     },
 }
@@ -137,5 +137,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = './static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-WKHTMLTOPDF_CMD = './wkhtmltopdf'
