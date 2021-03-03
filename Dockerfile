@@ -9,3 +9,6 @@ RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantcli
     cd /code/instantclient* && rm -f *jdbc* *occi* *mysql* *README *jar uidrvci genezi adrci && \
     echo /code/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
 COPY . /code/
+
+FROM wnameless/oracle-xe-11g-r2
+ADD script.sh /docker-entrypoint-initdb.d/
