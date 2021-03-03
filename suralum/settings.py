@@ -88,8 +88,8 @@ DATABASES = {
     'suralum': {
         'NAME': 'xe',
         'ENGINE': 'django.db.backends.oracle',
-        'USER': 'system',
-        'PASSWORD': 'oracle',
+        'USER': 'wingesfe',
+        'PASSWORD': 'wingesfe',
         'HOST': 'db',
         'PORT': '1521',
     },

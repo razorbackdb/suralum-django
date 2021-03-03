@@ -5,10 +5,10 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linuxx64.zip && \
-    unzip instantclient-basiclite-linuxx64.zip && rm -f instantclient-basiclite-linuxx64.zip && \
-    cd /code/instantclient* && rm -f *jdbc* *occi* *mysql* *README *jar uidrvci genezi adrci && \
-    echo /code/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
+    unzip instantclient-basiclite-linuxx64.zip && \
+    rm -f instantclient-basiclite-linuxx64.zip && \
+    cd instantclient* && \
+    rm -f *jdbc* *occi* *mysql* *jar uidrvci genezi adrci && \
+    echo /code/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && \
+    ldconfig
 COPY . /code/
-
-FROM wnameless/oracle-xe-11g-r2
-ADD script.sh /docker-entrypoint-initdb.d/

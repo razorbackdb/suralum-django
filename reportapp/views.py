@@ -28,23 +28,22 @@ def index(request):
                 subtotal.append(p[0])
                 total = total + p[0]
         if '2' in descriptores:
-            productos = Productos.objects.using('suralum').raw("""SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
+            productos = Productos.objects.using('suralum').raw('''SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
                                                                         FROM productos JOIN venta_productos ON(venta_productos.id_producto=productos.id_producto) JOIN ventas ON(ventas.id_venta=venta_productos.id_venta) 
                                                                         WHERE EXTRACT(YEAR FROM ventas.fecha)=%s
                                                                         GROUP BY productos.id_producto, productos.descripcion
-                                                                        ORDER BY t DESC
-                                                                        """, [f])[:10]
+                                                                        ORDER BY t DESC;''', [f])[:10]
             for p in productos:
                 productos_mas_vendidos.append(
                     [p.id_producto, p.descripcion, p.t])
 
         if '3' in descriptores:
-            familias = Familia.objects.using('suralum').raw("""SELECT familia.id_familia, SUM(venta_productos.cantidad*venta_productos.precio) as t
+            familias = Familia.objects.using('suralum').raw('''SELECT familia.id_familia, familia.descripcion_familia, SUM(venta_productos.cantidad*venta_productos.precio) as t
                                                                     FROM familia JOIN productos ON familia.id_familia = productos.id_familia
                                                                     JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
                                                                     JOIN ventas ON venta_productos.id_venta=ventas.id_venta
                                                                     WHERE EXTRACT(YEAR FROM ventas.fecha) = %s
-                                                                    GROUP BY familia.id_familia;""", [f])
+                                                                    GROUP BY familia.id_familia, familia.descripcion_familia;''', [f])
             for p in familias:
                 ventas_por_familia.append([p.descripcion_familia, p.t])
         x[f] = {

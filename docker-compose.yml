@@ -2,7 +2,9 @@ version: "3"
    
 services:
   db:
-    image: wnameless/oracle-xe-11g-r2
+    build:
+      context: .
+      dockerfile: Dockerfile.db
     ports:
       - 1521:1521
   web:
