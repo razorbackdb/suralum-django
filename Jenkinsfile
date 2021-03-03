@@ -11,10 +11,5 @@ pipeline {
                 sh 'docker-compose up -d --force-recreate'
             }
         }
-        stage { 'Test' } {
-            steps {
-                sh './python manage.py jenkins --enable-coverage'
-            }
-        }
     }
 }
