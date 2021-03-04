@@ -3,7 +3,7 @@
 <div class="container-sm">
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark mb-0">Dashboard</h3><a id="generar" class="btn btn-primary btn-sm d-none d-sm-inline-block"
-            role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i> Generar PDF</a>
     </div>
 </div>
 <div id="print">
@@ -11,6 +11,7 @@
     <div class="container-sm">
         <br>
         <h6 class="text-primary font-weight-bold m-0">Año {{ key }}</h6><br>
+        {% if "1" in descriptores %}
         <div class="row" style="max-width: 768px">
             <div class="col-lg-6 col-xl-8">
                 <div class="card shadow mb-4">
@@ -39,7 +40,9 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         <div class="row" style="max-width: 768px">
+            {% if "2" in descriptores %}
             <div class="col-lg-6 col-xl-6">
                 <div class="card shadow">
                     <div class="card-header">
@@ -67,7 +70,9 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="col-lg-6 col-xl-6">
+                {% if "3" in descriptores %}
                 <div class="card shadow">
                     <div class="card-header">
                         <h6 class="text-primary font-weight-bold m-0">Ventas por Familia</h6>
@@ -93,8 +98,148 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
+        <br>
+        <div class="row" style="max-width: 768px">
+            {% if "4" in descriptores%}
+            <div class="col-lg-6 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas Suralum</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Volumen Vendido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i, cantidad, precio  in value.suralum_productos %}
+                                    <tr>
+                                        <td>{{ cantidad }}</td>
+                                        <td>${{ precio }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Suralum Año
+                                        {{key}}</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.suralum_total }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+        <div class="row" style="max-width: 768px">
+            {% if "5" in descriptores%}
+            <div class="col-lg-6 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas Huracan</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Volumen Vendido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i, cantidad, precio  in value.huracan_productos %}
+                                    <tr>
+                                        <td>{{ cantidad }}</td>
+                                        <td>${{ precio }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Huracan Año
+                                        {{key}}</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.huracan_total }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+        <div class="row" style="max-width: 768px">
+            {% if "6" in descriptores%}
+            <div class="col-lg-6 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas Industrial</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Volumen Vendido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i, cantidad, precio  in value.industrial_productos %}
+                                    <tr>
+                                        <td>{{ cantidad }}</td>
+                                        <td>${{ precio }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Industrial Año
+                                        {{key}}</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.industrial_total }}</span></div>
+                            </div>
+                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <br>
     </div>
     {% endfor %}
 </div>

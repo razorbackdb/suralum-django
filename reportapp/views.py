@@ -19,8 +19,13 @@ def index(request):
         subtotal = []
         productos_mas_vendidos = []
         ventas_por_familia = []
+        suralum_productos = []
+        suralum_total = 0
+        huracan_productos = []
+        huracan_total = 0
+        industrial_productos = []
+        industrial_total = 0
         total = 0
-        print(f)
         if '1' in descriptores:
             ventas_por_mes = Ventas.objects.annotate(month=TruncMonth('fecha')).using('suralum').values(
                 'month').annotate(total_mensual=Sum('subtotal')).filter(fecha__year=f).order_by('month').values_list('total_mensual')
@@ -46,15 +51,61 @@ def index(request):
                                                                     GROUP BY familia.id_familia, familia.descripcion_familia;''', [f])
             for p in familias:
                 ventas_por_familia.append([p.descripcion_familia, p.t])
+        if '4' in descriptores:
+            suralum = Productos.objects.using('suralum').raw('''SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
+                                                                    FROM familia JOIN productos ON familia.id_familia = productos.id_familia
+                                                                    JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
+                                                                    JOIN ventas ON venta_productos.id_venta=ventas.id_venta
+                                                                    WHERE EXTRACT(YEAR FROM ventas.fecha) = %s AND familia.id_familia = 1
+                                                                    GROUP BY productos.id_producto, productos.descripcion
+                                                                    ORDER BY t DESC;''', [f])
+            for p in suralum:
+                suralum_total = suralum_total + p.t
+            for p in suralum[:10]:
+                suralum_productos.append(
+                    [p.id_producto, p.descripcion, p.t])
+        if '5' in descriptores:
+            huracan = Productos.objects.using('suralum').raw('''SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
+                                                                    FROM familia JOIN productos ON familia.id_familia = productos.id_familia
+                                                                    JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
+                                                                    JOIN ventas ON venta_productos.id_venta=ventas.id_venta
+                                                                    WHERE EXTRACT(YEAR FROM ventas.fecha) = %s AND familia.id_familia = 2
+                                                                    GROUP BY productos.id_producto, productos.descripcion
+                                                                    ORDER BY t DESC;''', [f])
+            for p in huracan:
+                huracan_total = huracan_total + p.t
+            for p in huracan[:10]:
+                huracan_productos.append(
+                    [p.id_producto, p.descripcion, p.t])
+        if '6' in descriptores:
+            industrial = Productos.objects.using('suralum').raw('''SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
+                                                                    FROM familia JOIN productos ON familia.id_familia = productos.id_familia
+                                                                    JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
+                                                                    JOIN ventas ON venta_productos.id_venta=ventas.id_venta
+                                                                    WHERE EXTRACT(YEAR FROM ventas.fecha) = %s AND familia.id_familia = 3
+                                                                    GROUP BY productos.id_producto, productos.descripcion
+                                                                    ORDER BY t DESC;''', [f])
+            for p in industrial:
+                industrial_total = industrial_total + p.t
+            for p in industrial[:10]:
+                industrial_productos.append(
+                    [p.id_producto, p.descripcion, p.t])
         x[f] = {
             'total' : total,
             'ventas_por_mes': subtotal,
             'productos_mas_vendidos': productos_mas_vendidos,
-            'ventas_por_familia': ventas_por_familia
+            'ventas_por_familia': ventas_por_familia,
+            'suralum_productos' : suralum_productos,
+            'suralum_total' : suralum_total,
+            'huracan_productos' : huracan_productos,
+            'huracan_total' : huracan_total,
+            'industrial_productos' : industrial_productos,
+            'industrial_total' : industrial_total
+
         }
     print(x)
 
-    return render(request, 'index.html', { 'datos' : x })
+    return render(request, 'index.html', { 'datos' : x , 'descriptores' : descriptores})
 
 
 @login_required
@@ -74,11 +125,9 @@ def report(request):
             request.session['descriptores'] = descform.cleaned_data['Descriptores']
 
             fechas = []
-            print(dateform.data)
             for f in dateform.data:
                 if f[7:] == "Fecha":
                     fechas.append(dateform.data[f])
-                print(f)
             request.session['fechas'] = fechas
             return HttpResponseRedirect('index')
 
