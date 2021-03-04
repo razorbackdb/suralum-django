@@ -9,7 +9,7 @@ services:
       - 1521:1521
   web:
     build: .
-    command: python manage.py jenkins --enable-coverage
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:

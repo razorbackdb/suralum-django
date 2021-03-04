@@ -1,5 +1,5 @@
 cx-Oracle
 Django
+coverage
 django-crispy-forms==1.11.1
-django-jenkins==0.110.0
 django-tempus-dominus==5.1.2.13

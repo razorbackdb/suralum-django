@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tempus_dominus',
     'reportapp',
-    'django_jenkins',
 ]
 
 MIDDLEWARE = [
