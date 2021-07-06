@@ -10,10 +10,14 @@ from reportapp.models import Familia, Productos, Ventas
 from .forms import DateForm, DescForm
 
 # Create your views here.
+
+
 @login_required
 def index(request):
-    descriptores = request.session['descriptores']
-    fechas = request.session['fechas']
+    #descriptores = request.session['descriptores']
+    descriptores = {'1', '2', '3', '4', '5', '6'}
+    #fechas = request.session['fechas']
+    fechas = {'2016', '2017', '2018', '2019', '2020'}
     x = {}
     for f in fechas:
         subtotal = []
@@ -91,21 +95,21 @@ def index(request):
                 industrial_productos.append(
                     [p.id_producto, p.descripcion, p.t])
         x[f] = {
-            'total' : total,
+            'total': total,
             'ventas_por_mes': subtotal,
             'productos_mas_vendidos': productos_mas_vendidos,
             'ventas_por_familia': ventas_por_familia,
-            'suralum_productos' : suralum_productos,
-            'suralum_total' : suralum_total,
-            'huracan_productos' : huracan_productos,
-            'huracan_total' : huracan_total,
-            'industrial_productos' : industrial_productos,
-            'industrial_total' : industrial_total
+            'suralum_productos': suralum_productos,
+            'suralum_total': suralum_total,
+            'huracan_productos': huracan_productos,
+            'huracan_total': huracan_total,
+            'industrial_productos': industrial_productos,
+            'industrial_total': industrial_total
 
         }
     print(x)
 
-    return render(request, 'index.html', { 'datos' : x , 'descriptores' : descriptores})
+    return render(request, 'index.html', {'datos': x, 'descriptores': descriptores})
 
 
 @login_required
