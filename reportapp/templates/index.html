@@ -9,26 +9,28 @@
 <div id="print">
     {% for key, value in datos.items %}
     <div class="container-sm">
+        </ul>
         <br>
-        <h6 class="text-primary font-weight-bold m-0">Año {{ key }}</h6><br>
         {% if "1" in descriptores %}
-        <div class="row" style="max-width: 768px">
+        <div class="row" style="max-width: 1024px">
             <div class="col-lg-6 col-xl-8">
                 <div class="card shadow mb-4">
                     <div class="card-header justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
                     </div>
-                    <div class="card-body" style="max-width: 450px">
-                        <div class="chart-area"><canvas id="canvas{{key}}"
-                                data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Earnings&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
+                    <div class="card-body" style="max-width: 768px">
+                        <div class="chart-area"><canvas id="canvastotal"
+                                data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:
+                                    {&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Ventas&quot;,&quot;fill&quot;:true,&quot;hidden&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-xl-4">
                 <div class="card shadow border-left-success py-2">
-                    <div class="card-body">
-                        <div class="row align-items-center no-gutters">
+                    {% for key, value in datos.items %}
+                    <div class="card-body" id="ventastotales{{key}}">
+                        <div class="row align-items-center no-gutters" onclick="toggleHidden({{key}})">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Año
                                         {{key}}</span></div>
@@ -36,7 +38,18 @@
                             </div>
                             <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                         </div>
+                        <script>
+                            function toggleHidden(key) {
+                                var element = document.getElementById("ventastotales".concat(key));
+                                if (element.style.display === "none") {
+                                    element.style.display = "block";
+                                } else {
+                                    element.style.display = "none";
+                                }
+                            }
+                        </script>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -101,7 +114,18 @@
                 {% endif %}
             </div>
         </div>
-        <br>
+        <div class="card shadow mb-4">
+            <div class="card-header justify-content-between align-items-center">
+                <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
+            </div>
+            <div class="card-body" style="max-width: 768px">
+                <div class="chart-area"><canvas id="canvasfamilias"
+                        data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:
+                        {&quot;labels&quot;:[&quot;2017&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Ventas&quot;,&quot;fill&quot;:true,&quot;hidden&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- <br>
         <div class="row" style="max-width: 768px">
             {% if "4" in descriptores%}
             <div class="col-lg-6 col-xl-6">
@@ -246,51 +270,73 @@
             {% endif %}
         </div>
         <br>
+    </div> 
+    {% endfor %}-->
     </div>
-    {% endfor %}
-</div>
-{{ datos|json_script:"fechas" }}
-<script>
-    $(function () {
-        $(document).ready(function () {
-            const fechas = JSON.parse(document.getElementById('fechas').textContent);
-            console.log(Object.keys(fechas).length)
-            i = 0;
-            for (f in fechas) {
-                console.log(f.toString());
-                var chart = document.getElementById("canvas".concat(f.toString())).chart;
-                console.log(fechas[f]['ventas_por_mes'])
-                for (v in fechas[f]['ventas_por_mes']) {
-                    chart.data.datasets[0].data[v] = fechas[f]['ventas_por_mes'][v];
+    {{ datos|json_script:"fechas" }}
+    <script>
+        $(function () {
+            $(document).ready(function () {
+                const fechas = JSON.parse(document.getElementById('fechas').textContent)
+                console.log(Object.keys(fechas).length)
+
+                var chart = document.getElementById("canvastotal").chart
+                for (f in fechas) {
+                    const newDataset = {
+                        label: f,
+                        data: fechas[f]['ventas_por_mes'],
+                        borderColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                            .substr(1,
+                                6),
+                        fill: true,
+                    };
+                    chart.data.datasets.push(newDataset);
+                    console.log(chart.data.datasets)
                 }
+                chart.data.datasets.shift()
                 chart.update();
-            }
-        });
 
-        $('#generar').on('click', function () {
-            var opt = {
-                margin: 0,
-                filename: 'myfile.pdf',
-                pagebreak: {
-                    mode: ['avoid-all', 'css', 'legacy']
-                },
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'legal',
-                    orientation: 'portrait'
+                var chartfamilias = document.getElementById("canvassuralum").chart
+                for (f in fechas) {
+                    const newDataset = {
+                        label: f,
+                        data: fechas[f]['ventas_por_mes'],
+                        borderColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                            .substr(1,
+                                6),
+                        fill: true,
+                    };
+                    chartfamilias.data.datasets.push(newDataset);
+                    console.log(chart.data.datasets)
                 }
-            };
+                //chartfamilias.data.datasets.shift()
+                chartfamilias.update();
+            });
 
-            element = document.getElementById("print");
-            html2pdf(element, opt);
+            $('#generar').on('click', function () {
+                var opt = {
+                    margin: 0,
+                    filename: 'myfile.pdf',
+                    pagebreak: {
+                        mode: ['avoid-all', 'css', 'legacy']
+                    },
+                    image: {
+                        type: 'jpeg',
+                        quality: 0.98
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'legal',
+                        orientation: 'portrait'
+                    }
+                };
+
+                element = document.getElementById("print");
+                html2pdf(element, opt);
+            });
         });
-    });
-</script>
-{% endblock %}
+    </script>
+    {% endblock %}

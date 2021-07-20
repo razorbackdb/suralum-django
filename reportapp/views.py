@@ -17,7 +17,7 @@ def index(request):
     #descriptores = request.session['descriptores']
     descriptores = {'1', '2', '3', '4', '5', '6'}
     #fechas = request.session['fechas']
-    fechas = {'2016', '2017', '2018', '2019', '2020'}
+    fechas = {'2017', '2018', '2019', '2020'}
     x = {}
     for f in fechas:
         subtotal = []
@@ -38,10 +38,9 @@ def index(request):
                 total = total + p[0]
         if '2' in descriptores:
             productos = Productos.objects.using('suralum').raw('''SELECT productos.id_producto, productos.descripcion, SUM(venta_productos.cantidad*venta_productos.precio) as t
-                                                                        FROM productos JOIN venta_productos ON(venta_productos.id_producto=productos.id_producto) JOIN ventas ON(ventas.id_venta=venta_productos.id_venta) 
-                                                                        WHERE EXTRACT(YEAR FROM ventas.fecha)=%s
+                                                                        FROM productos JOIN venta_productos ON(venta_productos.id_producto=productos.id_producto) JOIN ventas ON(ventas.id_venta=venta_productos.id_venta)
                                                                         GROUP BY productos.id_producto, productos.descripcion
-                                                                        ORDER BY t DESC;''', [f])[:10]
+                                                                        ORDER BY t DESC;''')[:10]
             for p in productos:
                 productos_mas_vendidos.append(
                     [p.id_producto, p.descripcion, p.t])
@@ -51,8 +50,7 @@ def index(request):
                                                                     FROM familia JOIN productos ON familia.id_familia = productos.id_familia
                                                                     JOIN venta_productos ON venta_productos.id_producto = productos.id_producto 
                                                                     JOIN ventas ON venta_productos.id_venta=ventas.id_venta
-                                                                    WHERE EXTRACT(YEAR FROM ventas.fecha) = %s
-                                                                    GROUP BY familia.id_familia, familia.descripcion_familia;''', [f])
+                                                                    GROUP BY familia.id_familia, familia.descripcion_familia;''')
             for p in familias:
                 ventas_por_familia.append([p.descripcion_familia, p.t])
         if '4' in descriptores:
@@ -107,8 +105,6 @@ def index(request):
             'industrial_total': industrial_total
 
         }
-    print(x)
-
     return render(request, 'index.html', {'datos': x, 'descriptores': descriptores})
 
 
@@ -145,3 +141,7 @@ def report(request):
 @login_required
 def table(request):
     return render(request, 'table.html')
+
+
+def testbed(request):
+    return render(request, 'testbed.html')
