@@ -7,11 +7,7 @@
     </div>
 </div>
 <div id="print">
-    {% for key, value in datos.items %}
     <div class="container-sm">
-        </ul>
-        <br>
-        {% if "1" in descriptores %}
         <div class="row" style="max-width: 1024px">
             <div class="col-lg-6 col-xl-8">
                 <div class="card shadow mb-4">
@@ -30,7 +26,7 @@
                 <div class="card shadow border-left-success py-2">
                     {% for key, value in datos.items %}
                     <div class="card-body" id="ventastotales{{key}}">
-                        <div class="row align-items-center no-gutters" onclick="toggleHidden({{key}})">
+                        <div class="row align-items-center no-gutters" onclick="toggleHidden({{ key }})">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas Año
                                         {{key}}</span></div>
@@ -53,290 +49,173 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-        <div class="row" style="max-width: 768px">
-            {% if "2" in descriptores %}
-            <div class="col-lg-6 col-xl-6">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-primary font-weight-bold m-0">Producto mas Vendido</h6>
+        <div class="row" style="max-width: 1024px">
+            <div class="col-lg-7 col-xl-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Ventas Por Familia</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Volumen Vendido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for i, cantidad, precio  in value.productos_mas_vendidos %}
-                                    <tr>
-                                        <td>{{ cantidad }}</td>
-                                        <td>${{ precio }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                    <div class="card-body" style="max-width: 768px">
+                        <div class="chart-area"><canvas id="canvasfamilias"
+                                data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;2017&quot;,&quot;2018&quot;,&quot;2019&quot;,&quot;2020&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;2017&quot;,&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;,&quot;data&quot;:[&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;1200&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endif %}
-            <div class="col-lg-6 col-xl-6">
-                {% if "3" in descriptores %}
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-primary font-weight-bold m-0">Ventas por Familia</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Familia</th>
-                                        <th>Volumen Vendido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for familia, volumen in value.ventas_por_familia %}
-                                    <tr>
-                                        <td>{{ familia }}</td>
-                                        <td>${{ volumen }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+            {% for key, value in datos.items %}
+            <div class="row" style="max-width: 1024px">
+                <div class="col-lg-6 col-xl-6">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h6 class="text-primary font-weight-bold m-0">Producto mas Vendido {{ key }}</h6>
                         </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header justify-content-between align-items-center">
-                <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
-            </div>
-            <div class="card-body" style="max-width: 768px">
-                <div class="chart-area"><canvas id="canvasfamilias"
-                        data-bss-chart="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:
-                        {&quot;labels&quot;:[&quot;2017&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Ventas&quot;,&quot;fill&quot;:true,&quot;hidden&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
-                </div>
-            </div>
-        </div>
-        <!-- <br>
-        <div class="row" style="max-width: 768px">
-            {% if "4" in descriptores%}
-            <div class="col-lg-6 col-xl-6">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-primary font-weight-bold m-0">Ventas Suralum</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Volumen Vendido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for i, cantidad, precio  in value.suralum_productos %}
-                                    <tr>
-                                        <td>{{ cantidad }}</td>
-                                        <td>${{ precio }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-xl-4">
-                <div class="card shadow border-left-success py-2">
-                    <div class="card-body">
-                        <div class="row align-items-center no-gutters">
-                            <div class="col mr-2">
-                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas
-                                        Suralum Año
-                                        {{key}}</span></div>
-                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.suralum_total }}</span>
-                                </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Volumen Vendido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i, cantidad, precio in value.productos_mas_vendidos %}
+                                        <tr>
+                                            <td>{{ cantidad }}</td>
+                                            <td>{{ precio }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
-        </div>
-        <br>
-        <div class="row" style="max-width: 768px">
-            {% if "5" in descriptores%}
-            <div class="col-lg-6 col-xl-6">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-primary font-weight-bold m-0">Ventas Huracan</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Volumen Vendido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for i, cantidad, precio  in value.huracan_productos %}
-                                    <tr>
-                                        <td>{{ cantidad }}</td>
-                                        <td>${{ precio }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                <div class="col-lg-6 col-xl-6">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h6 class="text-primary font-weight-bold m-0">Ventas por Familia {{ key }} </h6>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-xl-4">
-                <div class="card shadow border-left-success py-2">
-                    <div class="card-body">
-                        <div class="row align-items-center no-gutters">
-                            <div class="col mr-2">
-                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas
-                                        Huracan Año
-                                        {{key}}</span></div>
-                                <div class="text-dark font-weight-bold h5 mb-0"><span>${{ value.huracan_total }}</span>
-                                </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Familia</th>
+                                            <th>Volumen Vendido</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for familia, volumen in value.ventas_por_familia %}
+                                        <tr>
+                                            <td>{{ familia }}</td>
+                                            <td>{{ volumen }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endif %}
+            {% endfor %}
         </div>
-        <br>
-        <div class="row" style="max-width: 768px">
-            {% if "6" in descriptores%}
-            <div class="col-lg-6 col-xl-6">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-primary font-weight-bold m-0">Ventas Industrial</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Volumen Vendido</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for i, cantidad, precio  in value.industrial_productos %}
-                                    <tr>
-                                        <td>{{ cantidad }}</td>
-                                        <td>${{ precio }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-xl-4">
-                <div class="card shadow border-left-success py-2">
-                    <div class="card-body">
-                        <div class="row align-items-center no-gutters">
-                            <div class="col mr-2">
-                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas
-                                        Industrial Año
-                                        {{key}}</span></div>
-                                <div class="text-dark font-weight-bold h5 mb-0">
-                                    <span>${{ value.industrial_total }}</span></div>
-                            </div>
-                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        <br>
-    </div> 
-    {% endfor %}-->
     </div>
-    {{ datos|json_script:"fechas" }}
-    <script>
-        $(function () {
-            $(document).ready(function () {
-                const fechas = JSON.parse(document.getElementById('fechas').textContent)
-                console.log(Object.keys(fechas).length)
+</div>
+{{ datos|json_script:"fechas" }}
+<script>
+    $(function () {
+        $(document).ready(function () {
+            const fechas = JSON.parse(document.getElementById('fechas').textContent)
 
-                var chart = document.getElementById("canvastotal").chart
-                for (f in fechas) {
-                    const newDataset = {
-                        label: f,
-                        data: fechas[f]['ventas_por_mes'],
-                        borderColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
-                            .substr(1,
-                                6),
-                        fill: true,
-                    };
-                    chart.data.datasets.push(newDataset);
-                    console.log(chart.data.datasets)
-                }
-                chart.data.datasets.shift()
-                chart.update();
+            var chart = document.getElementById("canvastotal").chart
 
-                var chartfamilias = document.getElementById("canvassuralum").chart
-                for (f in fechas) {
-                    const newDataset = {
-                        label: f,
-                        data: fechas[f]['ventas_por_mes'],
-                        borderColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
-                            .substr(1,
-                                6),
-                        fill: true,
-                    };
-                    chartfamilias.data.datasets.push(newDataset);
-                    console.log(chart.data.datasets)
-                }
-                //chartfamilias.data.datasets.shift()
-                chartfamilias.update();
-            });
-
-            $('#generar').on('click', function () {
-                var opt = {
-                    margin: 0,
-                    filename: 'myfile.pdf',
-                    pagebreak: {
-                        mode: ['avoid-all', 'css', 'legacy']
-                    },
-                    image: {
-                        type: 'jpeg',
-                        quality: 0.98
-                    },
-                    html2canvas: {
-                        scale: 2
-                    },
-                    jsPDF: {
-                        unit: 'in',
-                        format: 'legal',
-                        orientation: 'portrait'
-                    }
+            for (f in fechas) {
+                const newDataset = {
+                    label: f,
+                    data: fechas[f]['ventas_por_mes'],
+                    borderColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                        .substr(1,
+                            6),
+                    fill: true,
                 };
+                chart.data.datasets.push(newDataset);
+            }
 
-                element = document.getElementById("print");
-                html2pdf(element, opt);
-            });
+            chart.data.datasets.shift()
+            chart.update();
+
+            var chartfamilias = document.getElementById("canvasfamilias").chart
+            var suralum = []
+            var huracan = []
+            var industrial = []
+            console.log(fechas)
+            for (f in fechas) {
+                suralum.push(fechas[f]['suralum_total'])
+                huracan.push(fechas[f]['huracan_total'])
+                industrial.push(fechas[f]['industrial_total'])
+            }
+            console.log(huracan)
+
+            const suralumDataset = {
+                label: 'Suralum',
+                data: suralum,
+                backgroundColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                    .substr(1,
+                        6),
+                fill: true,
+            };
+            chartfamilias.data.datasets.push(suralumDataset);
+
+            const huracanDataset = {
+                label: 'Huracan',
+                data: huracan,
+                backgroundColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                    .substr(1,
+                        6),
+                fill: true,
+            };
+            chartfamilias.data.datasets.push(huracanDataset);
+
+            const industrialDataset = {
+                label: 'Industrial',
+                data: industrial,
+                backgroundColor: '#' + (0x1000000 + Math.random() * 0xffffff).toString(16)
+                    .substr(1,
+                        6),
+                fill: true,
+            };
+            chartfamilias.data.datasets.push(industrialDataset);
+
+            chartfamilias.data.datasets.shift()
+            chartfamilias.update();
         });
-    </script>
-    {% endblock %}
+
+        $('#generar').on('click', function () {
+            var opt = {
+                margin: 0,
+                filename: 'myfile.pdf',
+                pagebreak: {
+                    mode: ['avoid-all', 'css', 'legacy']
+                },
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'legal',
+                    orientation: 'portrait'
+                }
+            };
+
+            element = document.getElementById("print");
+            html2pdf(element, opt);
+        });
+    });
+</script>
+{% endblock %}
