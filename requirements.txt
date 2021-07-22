@@ -1,5 +1,6 @@
 cx-Oracle
 Django
 coverage
+docutils
 django-crispy-forms==1.11.1
 django-tempus-dominus==5.1.2.13
