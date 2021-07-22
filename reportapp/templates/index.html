@@ -15,6 +15,7 @@
                         <h6 class="text-primary font-weight-bold m-0">Ventas Totales</h6>
                     </div>
                     <div class="card-body" style="max-width: 768px">
+                        <!-- Grafico de Vetnas Totales -->
                         <div class="chart-area"><canvas id="canvastotal"
                                 data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:
                                     {&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Ventas&quot;,&quot;fill&quot;:true,&quot;hidden&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;7500&quot;,&quot;&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas>
@@ -34,6 +35,7 @@
                             </div>
                             <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                         </div>
+                        <!-- Funcionalidad para ocultar los totales de cada año -->
                         <script>
                             function toggleHidden(key) {
                                 var element = document.getElementById("ventastotales".concat(key));
@@ -129,8 +131,10 @@
         $(document).ready(function () {
             const fechas = JSON.parse(document.getElementById('fechas').textContent)
 
+            //Grafico de Ventas por Año
             var chart = document.getElementById("canvastotal").chart
 
+            //Obtener los datos de venta por mes y crear un nuevo DataSet por cada año
             for (f in fechas) {
                 const newDataset = {
                     label: f,
@@ -142,22 +146,28 @@
                 };
                 chart.data.datasets.push(newDataset);
             }
-
+            
+            //Eliminar los datos de prueba
             chart.data.datasets.shift()
+
+            //Actualizar el grafico
             chart.update();
 
+            //Grafico de Ventas por Familia
             var chartfamilias = document.getElementById("canvasfamilias").chart
+
             var suralum = []
             var huracan = []
             var industrial = []
-            console.log(fechas)
+            
+            //Obtener los datos de venta por año y guardarlos en arreglos distintos
             for (f in fechas) {
                 suralum.push(fechas[f]['suralum_total'])
                 huracan.push(fechas[f]['huracan_total'])
                 industrial.push(fechas[f]['industrial_total'])
             }
-            console.log(huracan)
 
+            //Crear un DataSet con para cada Familia con los arreglos definidos anteriormente
             const suralumDataset = {
                 label: 'Suralum',
                 data: suralum,
@@ -187,8 +197,11 @@
                 fill: true,
             };
             chartfamilias.data.datasets.push(industrialDataset);
-
+            
+            //Eliminar datos de prueba
             chartfamilias.data.datasets.shift()
+
+            //Actualizar Grafico
             chartfamilias.update();
         });
 
